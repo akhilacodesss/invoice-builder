@@ -30,35 +30,18 @@ function App() {
 
   return (
    <div className="min-h-screen bg-gradient-to-br from-[#1e2023] to-[#47484c] py-10 flex justify-center">
-      <div
-        id="invoice"
-        className="bg-white w-full max-w-2xl rounded-xl shadow-lg p-6 space-y-6"
-      >
-        <Actions
-          preview={preview}
-          setPreview={setPreview}
-          invoice={invoice}
-        />
+      <div className="w-full max-w-xl space-y-4">
+        <Actions preview={preview} setPreview={setPreview} invoice={invoice} />
+      
+      <div id="invoice" className="bg-white w-full max-w-2xl rounded-xl shadow-lg p-6 space-y-6" >
+        <InvoiceHeader invoice={invoice} setInvoice={setInvoice} preview={preview} />
 
-        <InvoiceHeader
-          invoice={invoice}
-          setInvoice={setInvoice}
-          preview={preview}
-        />
+        <ClientDetails invoice={invoice} setInvoice={setInvoice} preview={preview} />
 
-        <ClientDetails
-          invoice={invoice}
-          setInvoice={setInvoice}
-          preview={preview}
-        />
-
-        <ItemList
-          invoice={invoice}
-          setInvoice={setInvoice}
-          preview={preview}
-        />
+        <ItemList invoice={invoice} setInvoice={setInvoice} preview={preview} />
 
         <Summary items={invoice.items} />
+        </div>
       </div>
     </div>
   );

@@ -3,20 +3,18 @@ function ClientDetails({ invoice, setInvoice, preview }) {
 
   return (
     <div className="border rounded p-4 space-y-2">
-      <h3 className="font-semibold">Client Information</h3>
+      <h3 className="text-sm font-semibold text-gray-600 uppercase">Bill To</h3>
 
       {preview ? (
-        <>
-          <p>{client.name}</p>
-          <p>{client.email}</p>
-          <p className="whitespace-pre-line">{client.address}</p>
-        </>
+        <div className="space-y-1">
+          <p className="font-semibold text-base">{client.name}</p>
+          <p className="font-semibold text-base">{client.email}</p>
+          <p className="text-sm whitespace-pre-line text-gray-700">{client.address}</p>
+        </div>
       ) : (
-        <>
-          <input
-            className="border p-2 rounded w-full"
-            placeholder="Client Name"
-            value={client.name}
+        <div className="space-y-2">
+          <input className="border p-2 rounded w-full"
+            placeholder="Client Name" value={client.name}
             onChange={(e) =>
               setInvoice({
                 ...invoice,
@@ -48,7 +46,7 @@ function ClientDetails({ invoice, setInvoice, preview }) {
               })
             }
           />
-        </>
+        </div>
       )}
     </div>
   );

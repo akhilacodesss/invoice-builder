@@ -5,15 +5,14 @@ function ItemList({ invoice, setInvoice, preview }) {
   const [qty, setQty] = useState("");
   const [rate, setRate] = useState("");
 
+  const isValid = desc.trim() && qty > 0 && rate > 0;
   function addItem() {
-    if (!desc.trim() || !qty || !rate) {
-      alert("Please fill all item fields");
+    if (!isValid) 
       return;
-    }
-
+    
     setInvoice({
       ...invoice,
-      items: [...invoice.items, { desc, qty: +qty, rate: +rate }],
+      items: [...invoice.items, { desc,  qty: Number(qty), rate: Number(rate) }],
     });
 
     setDesc("");
@@ -34,66 +33,63 @@ function ItemList({ invoice, setInvoice, preview }) {
 
       {!preview && (
         <div className="grid grid-cols-4 gap-2 mb-3">
-          <input
-            className="border p-2"
-            placeholder="Description"
-            value={desc}
-            onChange={(e) => setDesc(e.target.value)}
-          />
-          <input
-            type="number"
-            className="border p-2"
-            placeholder="Qty"
-            value={qty}
-            onChange={(e) => setQty(e.target.value)}
-          />
-          <input
-            type="number"
-            className="border p-2"
-            placeholder="Rate"
-            value={rate}
-            onChange={(e) => setRate(e.target.value)}
-          />
-          <button
-            onClick={addItem}
-            className="bg-[#47484C] text-white font-medium px-4 py-2 rounded hover:opacity-90 transition"
-          >
-            Add
+          <input className="border p-2" placeholder="Description" value={desc}
+            onChange={(e) => setDesc(e.target.value)} />
+          <input type="number" className="border p-2" placeholder="Qty" value={qty}
+            onChange={(e) => setQty(e.target.value)}/>
+          <input type="number" className="border p-2" placeholder="Rate" value={rate}
+            onChange={(e) => setRate(e.target.value)}/>
+          <button disabled={!isValid} onClick={addItem}
+            className={`rounded px-4 py-2 transition  ${
+              isValid 
+              ? "bg-[#47484C] text-white hover:opacity-90"
+                : "bg-gray-300 cursor-not-allowed"
+            }`}>Add
           </button>
-
-
         </div>
       )}
 
-      <table className="w-full text-sm">
-        <thead>
-          <tr className="border-b">
-            <th>Description</th>
-            <th>Qty</th>
-            <th>Rate</th>
-            <th>Amount</th>
-            {!preview && <th></th>}
+      <table className="w-full text-sm border-t">
+        <thead className="bg-gray-100">
+          <tr>
+            <th className="text-left p-2">Description</th>
+            <th className="text-left p-2">Qty</th>
+            <th className="text-left p-2">Rate</th>
+            <th className="text-left p-2">Amount</th>
+            {!preview && <th className="text-left p-2"></th>}
           </tr>
         </thead>
         <tbody>
           {invoice.items.map((item, i) => (
             <tr key={i} className="border-b">
-              <td>{item.desc}</td>
-              <td>{item.qty}</td>
-              <td>₹ {item.rate}</td>
-              <td>{item.qty * item.rate}</td>
+              <td className="p-2">{item.desc}</td>
+              <td className="p-2 text-right">{item.qty}</td>
+              <td className="p-2 text-right">₹ {item.rate}</td>
+              <td className="p-2 text-right">{item.qty * item.rate}</td>
+
               {!preview && (
-                <td>
+                <td className="p-2 text-right">
                   <button
                     onClick={() => removeItem(i)}
-                    className="text-red-500"
-                  >
+                    className="text-red-500 hover:underline">
                     Remove
                   </button>
                 </td>
               )}
             </tr>
           ))}
+
+           {invoice.items.length === 0 && (
+            <tr>
+              <td
+                colSpan={preview ? 4 : 5}
+                className="text-center text-gray-500 p-4"
+              >
+                No items added
+              </td>
+            </tr>
+          )}
+
         </tbody>
       </table>
     </div>
