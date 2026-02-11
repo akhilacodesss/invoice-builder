@@ -33,7 +33,7 @@ function App() {
       <div className="w-full max-w-xl space-y-4">
         <Actions preview={preview} setPreview={setPreview} invoice={invoice} />
       
-      <div id="invoice" className="bg-white w-full max-w-2xl rounded-xl shadow-lg p-6 space-y-6" >
+      <div id="invoice" className="bg-white w-full max-w-2xl rounded-xl shadow-xl p-6 space-y-6 border border-gray-200" >
         <InvoiceHeader invoice={invoice} setInvoice={setInvoice} preview={preview} />
 
         <ClientDetails invoice={invoice} setInvoice={setInvoice} preview={preview} />

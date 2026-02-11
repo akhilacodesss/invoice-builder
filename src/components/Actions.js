@@ -25,7 +25,8 @@ function Actions({ preview, setPreview, invoice }) {
   }
 
   return (
-    <div className="flex justify-between mb-4">
+    <> 
+    <div className="flex justify-between mb-2">
       <button
         onClick={() => canPreview && setPreview(!preview)}
         className={`px-4 py-2 border rounded transition ${
@@ -36,16 +37,23 @@ function Actions({ preview, setPreview, invoice }) {
       >
         {preview ? "Edit" : "Preview"}
       </button>
-      {preview && (
+
       <button
         onClick={exportPDF}
-        className="bg-[#47484C] text-white font-medium px-4 py-2 rounded hover:opacity-90 transition"
-      >
+        disabled={!preview}
+        className={`font-medium px-4 py-2 rounded transition ${
+          preview ? "bg-[#47484C] text-white hover:opacity-90" : "bg-gray-300 text-gray-600 cursor-not-allowed" }`}>
         Export PDF
       </button>
-      )}
-    </div>
-  );
-}
+      </div>
+      
+    {!canPreview && (
+      <p className="text-red-500 text-sm mt-2">
+        Please fill all required fields and add at least one item before previewing.
+      </p>
+    )}
+</>
+  )};
+
 
 export default Actions;

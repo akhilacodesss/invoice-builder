@@ -7,7 +7,7 @@ function Summary({ items }) {
   const total = subtotal + tax;
 
   return (
-    <div className="flex justify-end ">
+    <div className="flex justify-end  border-t border-gray-200">
       <div className="w-64 border rounded-lg p-4 bg-gray-50 space-y-2">
         <div className="flex justify-between">
           <span>Subtotal</span>
